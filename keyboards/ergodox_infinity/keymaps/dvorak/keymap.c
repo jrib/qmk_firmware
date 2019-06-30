@@ -6,6 +6,7 @@
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
+#define QRTY 3 // qwerty
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -27,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   "  |   ,  |   .  |   p  |   y  |  |   |           |  Ins |   f  |   g  |   c  |   r  |   l  |   /    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |Esc/Ctrl|   a  |   o  |   e  |   u  |   i  |------|           |------|   H  |   J  |   K  |   L  |; / L2|   -    |
+ * |Esc/Ctrl|   a  |   o  |   e  |   u  |   i  |------|           |------|   d  |   h  |   t  |   n  |  s   |   -    |
  * |--------+------+------+------+------+------|  \   |           | Del  |------+------+------+------+------+--------|
- * | LShift |   ;  |   q  |   j  |   k  |   x  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
+ * | LShift |   ;  |   q  |   j  |   k  |   x  |      |           |      |   b  |   m  |   w  |   v  |  z   | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LCtrl| Down | Right| LGui | RAlt |                                       | RAlt | RGui | Right| Down | Rctrl|
+ *   | LCtrl| Down | Up   | LGui | RAlt |                                       | RAlt | RGui | Left | Right| Rctrl|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,------------.
  *                                        | Ctrl | Alt  |       | Alt  | Ctrl |
@@ -59,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_D,   KC_H,  KC_T,   KC_N,   KC_S, KC_MINS,
              KC_DEL,KC_B,   KC_M,  KC_W,KC_V, KC_Z,   KC_RSFT,
                                   KC_RALT, KC_RGUI,KC_LEFT,KC_RIGHT,          KC_RCTL,
-             KC_RALT,        KC_RCTL,
+             KC_RALT,        TG(QRTY),
              KC_PGUP,
              KC_PGDN,MO(SYMB), KC_ENT
     ),
@@ -68,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * |Version  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |   !  |   @  |   {  |   }  |   |  |      |           |      |   Up |   7  |   8  |   9  |   *  |   F12  |
+ * |         |   !  |   @  |   {  |   }  |   |  |      |           |      |   Up |   7  |   8  |   9  |   +  |   F12  |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |   #  |   $  |   (  |   )  |   `  |------|           |------| Down |   4  |   5  |   6  |   +  |        |
+ * |         |   #  |   $  |   (  |   )  |   `  |------|           |------| Down |   4  |   5  |   6  |   =  |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   \  |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -96,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                RGB_VAI,
                                KC_TRNS,KC_TRNS,RGB_VAD,
        // right hand
-       KC_F12, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_TRNS,
-       KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_ASTR, KC_TRNS,
-                KC_DOWN, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_TRNS,
+       KC_F12, KC_F6,   KC_F7,  KC_F8,   KC_F9,    KC_F10,  KC_TRNS,
+       KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_PLUS, KC_TRNS,
+                KC_DOWN, KC_4,   KC_5,    KC_6,    KC_EQL,  KC_TRNS,
        KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_BSLS, KC_TRNS,
                          KC_TRNS,KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
        RGB_TOG, RGB_SLD,
@@ -146,6 +147,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
 ),
+[QRTY] = LAYOUT_ergodox(  // a qwerty layer because some games are stupid
+        // left hand
+        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
+        KC_DELT,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
+        KC_BSPC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
+        KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
+        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
+                                              KC_LCTL,  KC_LALT,
+                                                              KC_HOME,
+                                               KC_SPC,MO(SYMB),KC_END,
+        // right hand
+             KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
+             TG(SYMB),    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
+                          KC_H,   KC_J,  KC_K,   KC_L,   LT(MDIA, KC_SCLN),GUI_T(KC_QUOT),
+             MEH_T(KC_NO),KC_N,   KC_M,  KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
+                                  KC_UP, KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN1,
+             KC_RALT,        TG(QRTY),
+             KC_PGUP,
+             KC_PGDN,MO(SYMB), KC_ENT
+    ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
